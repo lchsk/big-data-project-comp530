@@ -105,3 +105,6 @@ __PR__ - Prediction
 __DA__ - Data
 
 __VI__ - Visualisation
+
+#6 Bibliography
+- Mark Gardner, Beginning R. The Statistical Programming Language
