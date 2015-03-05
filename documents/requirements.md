@@ -82,9 +82,13 @@ This begins next stages of the project, necessary steps need to be undertaken. F
 
 
 ##4.2 Design phase
-This document should serve as the basis for creating design documentation. Requirements from section 3 should be broken into smaller tasks, described and assigned to a responsible member of the team. For that, "Issues" feature of the Github can be used. Then, those smaller tasks will be divided into separate periods of time and after completion of each part, a summary of completed work will be possible.  In case of any problems arising, we'll be able to adjust our tasks.
+This document should serve as the basis for creating design documentation. We intend to use some of the practices related to the Agile methodology.The large tasks mentioned above will be broken into smaller ones and assigned to a person responsible. Then, each task will be moved to one of the "sprints", i.e., stages lasting one or two weeks in which certain number of tasks should be completed. Rest of the tasks will remain in the "backlog", i.e., a place which will serve as a storage for yet unassigned tasks. For managing this process Github will be used (as it offers free software for doing just so). The big advantage of this approach is that it offers ability to change approach dynamically and quickly, that is, just after a problem is spotted. Agile methodology is very popular in many workplaces and can possibly be very useful in big data project at university level as well.
 
-For specifying time limits of the project, Gantt chart will be created. 
+During our weekly meetings, we are going to have a "scrum", which is a very popular characteristic of Agile methodology. Each member of the team will shortly explain what he or she did in the past week, what were the problems and possibly raise new topics for discussion. After each member will do so, plan of the next "sprint" will be confirmed, so that each member knows his or her responsibilities.
+
+The other characteristic of the Agile methodology that we will try is test-driven development. The idea behind it is that tests for the features should be developed first and code that satisfies particular test, second. This requires different mindset, but can largely improve dependability of the created software. We will try utilising TDD at least in some parts of the system (as it can be very labour-intensive).
+
+For specifying general time limits of the project, Gantt chart will be created.
 
 ##4.3 Implementation phase
 The outcome of the prediction should be visualized on large screens provided by the Hartree Centre, but for testing purposes, visualization will be available on development machines.
