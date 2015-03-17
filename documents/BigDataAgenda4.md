@@ -16,7 +16,7 @@ None.
 ####3. Action points of last meeting
 - connection issues were discussed; we have decided to try to work on our own with Big Insights virtual machine
 
-4. Identification of tasks
+####4. Identification of tasks
 - creation of design document, as explained in the minutes document
 
 **Next meeting:**
