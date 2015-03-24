@@ -1,0 +1,32 @@
+#MINUTES OF BIG DATA PROJECT (COMP530)
+**Meeting 5**
+*Held on 24th of March 2015 2pm-3pm* 
+
+Present: Mohammed, Opey (secretary), Maciek (chair)
+Apologies for Absence: Chris
+
+###1. Minutes
+- we are going to start implementation next week using Hadoop + Hive + R
+- smaller tasks will be created and assigned
+- we are working on design document, it should be completed by the end of this week
+
+### 2. Action points of last meeting
+
+
+### 3. Identification of tasks
+- our development stack is: Hadoop, Hive, R; so everyone should have those installed
+- we continue with the design document, tasks were assigned to different people:
+  - "Summary of Proposal" - Chris
+  - "Data structures and storage" - Chris
+  - "Algorithms and statistical model" - Maciek
+  - "Interface design" - Maciek
+  - "Testing and evaluation" - Mohammed
+  - "Review against the Plan" - Opey
+	
+### 4. Action Points
+- create a number of tasks; assign each one to a person responsible and divide into weeks
+- obtain dataset from Archeological data survey
+
+### 5. Date of next meeting
+TBD
+
