@@ -11,14 +11,15 @@
 Chris absent.
 
 ####2. Minutes of last meeting
-None.
+- We continue think the design document; due by the end of the week
 
 ####3. Action points of last meeting
+- obtain a data set
 - continuation of work on the design document
 
 ####4. Identification of tasks
-- completing design document
-- creation of a number of smaller tasks / assigning them to other people
+- everyone works on their part of the design document
+- review current list of issues; write about them in the design document; think about how they can be assigned most efficiently and whether the current timeline is viable
 
 **Next meeting:**
 
