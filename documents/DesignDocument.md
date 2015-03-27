@@ -27,4 +27,11 @@ For visualising the outcome on Hartree's screens, geo-tagged TIFF images will be
 As the software that will be created concerns obtaining correct results through use of the statistical model, there is no need for any advanced graphical interface for starting the program. Therefore, the application will be delivered as an executable `jar` file that can be started by writing commands in a Unix terminal. To ease the whole process, some shell scripts might be added as well.
 
 ###5 Testing and evaluation
+Among others, one of our main goal is to ensure that the data from the disparate systems is processed error free and is of good quality to perform analysis. As part of testing phase, both functional and non-functional testing would be performed. Functional testing involves validation of map reduce process, structured and unstructured data validation, data storage validation and data quality assurance are among the major tests whereas non-functional testing includes performance testing and failover testing. 
+
+Prior to any data loading or model deployment at the server, we will perform a smoke test on the environment by processing a simple map reduce and hive jobs to ensure everything works as expected.
+
+Since the project involves open data from numerous data providers, the data will be preprocessed before it’s loaded into HDFS. Preprocessing generally involves various task but our main focus would be on selection, splitting and joining of attributes where necessary. For the initial data load to HDFS, we would ensure that all files are correctly loaded and are split, moved and replicated in different data nodes as part of our initial testing during the data load. After loading the data in the HDFS, we will populate the respective HIVE tables. A major portion of our testing phase will be dedicated for HIVE tables since the entire query performance depends on how well the tables are structured and indexed. 
+We will also perform stress testing on our system by performing full data load activity to ensure that the developed system is efficient to load high volume of data at an acceptable time without failure. 
+
 ###6 Review against the Plan
