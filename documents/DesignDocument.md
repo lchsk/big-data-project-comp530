@@ -4,6 +4,16 @@
 ###1 Summary of Proposal
 ###2 Data structures and storage
 ###3 Algorithms and statistical model
+
+In order to obtain proper results, we intend to use three methods. That approach would let us compare algorithms and that also should benefit the quality of the outcome. A user should be given a choice of either of three methods and be able to see the results obtained by each of them.
+
+First, we are going to implement a solution based on the idea of supervised learning.
+Using an available data set containing a list of about 30,000 known archeological sites, a Perceptron algorithm will be trained. A portion of those data (for example from one county) will be chosen as a training set. After this training stage, features will have weights assigned and based on that, results will be obtained.
+
+One of the challenges we will need to face when implementing those algorithms, is to make sure that they use the same coordinate systems. Unfortunately, data sets that are available use different ways to specify locations. Some use WGS84 Latitude/Longitude) and some use  OSGB36 Grid References that are based on Easting/Northing values. Obviously, to obtain correct outcome, a valid conversion method will need to be used.
+
+Afterwards, during the prediction stage, we are going to measure relationship between features using linear and logistic regression. Greater similarity between training and "real" data would imply possibility of archeological artefacts to be found in a particular area.
+
 ###4 Interface design
 
 ####4.1 Visualisation
