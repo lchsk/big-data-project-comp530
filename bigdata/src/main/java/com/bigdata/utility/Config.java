@@ -1,7 +1,11 @@
 package com.bigdata.utility;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -18,6 +22,9 @@ public class Config
     private final Logger log = Logger.getLogger(Config.class.getName());
     private final String logFileExtension = ".log";
     private final String logDirectory = "log/";
+    
+    private final String configFilename = "config";
+    private HashMap<String, String> settings = new HashMap<String, String>();
 
     public static Config getInstance()
     {
@@ -43,12 +50,50 @@ public class Config
             logFile = new FileHandler(logDirectory + getLogFilename(), false);
             logFile.setFormatter(new SimpleFormatter());
             registerLogger(log);
+            
+            readConfigFile();
+            
+            System.out.println(this.getSetting("os50_path"));
 
         } catch (Exception e)
         {
             e.printStackTrace();
         }
 
+    }
+    
+    private void readConfigFile()
+    {
+        BufferedReader configFile = null; 
+        try
+        {
+            configFile = new BufferedReader(new FileReader(configFilename));
+
+            String line;
+            while ((line = configFile.readLine()) != null)
+            {
+                // omit lines starting with '#'
+                // because they're comments
+                if ( ! line.startsWith("#"))
+                {
+                    // syntax is: 
+                    // key=value
+                    String[] pair = line.split("=");
+                    settings.put(pair[0], pair[1]);
+                }
+            }
+            configFile.close();
+
+        } catch (FileNotFoundException e)
+        {
+            log.severe("Configuration file " + configFilename + " not found. Shutting down...");
+            System.exit(1);
+        }
+        catch(Exception e)
+        {
+            log.severe("Error reading configuration file...");
+        }
+        
     }
 
     /*
@@ -68,9 +113,9 @@ public class Config
         return dateString.toString() + logFileExtension;
     }
 
-    //    public String getSetting(String p_key)
-    //    {
-    //        return settings.get(p_key);
-    //    }
+    public String getSetting(String p_key)
+    {
+        return settings.get(p_key);
+    }
 
 }
