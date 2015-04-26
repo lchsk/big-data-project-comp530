@@ -52,10 +52,8 @@ public class Config
             registerLogger(log);
             
             readConfigFile();
-            
-            System.out.println(this.getSetting("os50_path"));
-
-        } catch (Exception e)
+        } 
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -69,9 +67,18 @@ public class Config
         {
             configFile = new BufferedReader(new FileReader(configFilename));
 
+            
             String line;
-            while ((line = configFile.readLine()) != null)
+            while (true)
             {
+                line = configFile.readLine();
+                
+                if (line != null && line.isEmpty())
+                    continue;
+                
+                if (line == null)
+                    break;
+                
                 // omit lines starting with '#'
                 // because they're comments
                 if ( ! line.startsWith("#"))
