@@ -106,12 +106,12 @@ public class UniversalLoader
         double [] p;
         UniversalItem b = null;
         
+        String line = null;
+        int counter = 0;
+        
         try
         {
             reader = new BufferedReader(new FileReader(path));
-            
-            String line;
-            int counter = 0;
             
             while (true)
             {
@@ -346,6 +346,7 @@ public class UniversalLoader
         catch (Exception e)
         {
             log.severe("Error reading file " + path);
+            log.severe(line);
             e.printStackTrace();
         }
     }

@@ -65,9 +65,9 @@ public class DataLoadingTest extends TestCase
         String s2[] = new String[]{"SP", "58699", "34779"};
         String[] s2_ = Common.parseNGR("SP 58699 34779");
         
-        String[] s3_ = Common.parseNGR("Something wrong");
+        String[] s3_ = Common.parseNGR("Only text here");
         
-        String[] s4_ = Common.parseNGR("Something...");
+        String[] s4_ = Common.parseNGR("Unknown");
         
         assertEquals(s1[0], s1_[0]);
         assertEquals(s1[1], s1_[1]);
