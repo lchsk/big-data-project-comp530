@@ -55,6 +55,13 @@ public class Conn
         }
     }
     
+    public void run() throws SQLException
+    {
+//        ResultSet res = s.executeQuery("drop schema bigdatagroupproject");
+//        s.execute("source /home/lchsk/projects/uni_1415_2/comp530/bigdata/sql/createTablesAll_DDL.sql");
+//        ResultSet res = s.executeQuery("source /home/lchsk/projects/uni_1415_2/comp530/bigdata/sql/createSchema.sql");
+    }
+    
     public void testConnection() throws SQLException
     {
         boolean success = true;
@@ -63,6 +70,12 @@ public class Conn
         try
         {
             ResultSet res = s.executeQuery("show tables");
+            
+            while(res.next())
+            {
+                System.out.println(res.getString(1));
+            }
+            
         }
         catch (Exception e)
         {

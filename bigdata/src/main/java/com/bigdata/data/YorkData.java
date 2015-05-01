@@ -76,45 +76,18 @@ public class YorkData
                                   l.getLon()
                                   )
                             );
-                    
-//                    data.put(d[1], new YorkDataItem(
-//                            Integer.valueOf(d[0]), 
-//                            d[1], 
-//                            Integer.valueOf(d[2]), 
-//                            Integer.valueOf(d[3]), 
-//                            Integer.valueOf(d[4]), 
-//                            Integer.valueOf(d[5]), 
-//                            Integer.valueOf(d[6]), 
-//                            Integer.valueOf(d[7]), 
-//                            0.0, 0.0));
-//                    System.out.println(data[1]);
                 }
-                
-                
             }
             reader.close();
-
         } 
         catch (FileNotFoundException e)
         {
             log.severe("File " + path + " not found.");
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             log.severe("Error reading file " + path);
             e.printStackTrace();
         }
-        
-//        EastingNorthing first = new EastingNorthing(data.get(10000).getE(), data.get(10000).getN());
-//        LatitudeLongitude second = first.toLatitudeLongitude();
-        
-        
-        
-//        EastingNorthing third = second.toEastingNorthing();
-
-        
-//        System.out.println("First: "+first.getEast()+","+first.getNorth());
-//        System.out.println("Second: "+second.getLat()+","+second.getLon());
-//        System.out.println("Third: "+third.getEast()+","+third.getNorth());
     }
 }

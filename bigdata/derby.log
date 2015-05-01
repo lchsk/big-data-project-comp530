@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Thu Apr 30 19:39:57 BST 2015:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014d-0ba0-ced5-000005bcd020 
+on database directory /home/lchsk/projects/uni_1415_2/comp530/bigdata/metastore_db with class loader sun.misc.Launcher$AppClassLoader@3a2c4ede 
+Loaded from file:/root/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_65-b32
+user.dir=/home/lchsk/projects/uni_1415_2/comp530/bigdata
+os.name=Linux
+os.arch=amd64
+os.version=3.13.0-46-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
