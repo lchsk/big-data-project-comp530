@@ -26,6 +26,15 @@ public class Common
             r[1] = s.substring(2, 7);
             r[2] = s.substring(7, 12);
             
+            if ( ! r[0].matches("[A-Z]+"))
+                return null;
+            
+            if ( ! r[1].matches("[0-9]+"))
+                return null;
+            
+            if ( ! r[2].matches("[0-9]+"))
+                return null;
+            
             return r;
         }
         else
