@@ -33,7 +33,7 @@ public class Main
         
         OSData os = new OSData();
         os.load("NO");
-       
+        
         
     }
 }

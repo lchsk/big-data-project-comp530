@@ -102,10 +102,14 @@ public class OSData
                     {
                         s.addLine(d);
                     }
+                    else
+                    {
+                        s.addMetadata(d);
+                    }
                 }
                 
-                if (s.hasData() == false)
-                System.out.println(s.hasData());
+//                if (s.hasData() == false)
+//                System.out.println(s.hasData());
                 data[i] = s;
             }
             catch (FileNotFoundException e)
@@ -125,6 +129,11 @@ public class OSData
             
         }
         System.out.println("NOT NULL: " + count());
+    }
+
+    public OSDataSingle[] getData()
+    {
+        return data;
     }
     
     

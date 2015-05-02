@@ -3,9 +3,12 @@ package com.bigdata;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import com.bigdata.data.DataSetType;
 import com.bigdata.data.OSData;
+import com.bigdata.data.OSDataSingle;
 import com.bigdata.data.UniversalLoader;
 import com.bigdata.utility.Common;
 
@@ -118,5 +121,25 @@ public class DataLoadingTest extends TestCase
         
         os.load("TM");
         assertEquals(true, os.isDataLoaded());
+    }
+    
+    public void testOSMetadata()
+    {
+        OSData os = new OSData();
+        os.load("NN");
+        
+        OSDataSingle[] s = os.getData();
+        
+        for (int i = 0; i < s.length; i++)
+        {
+            if (s[i] != null)
+            {
+                assertEquals(200, s[i].getRows());
+                assertEquals(200, s[i].getCols());
+                assertEquals(50, s[i].getCellsize());
+                assertNotEquals(-1., s[i].getXcorner(), 0.01);
+                assertNotEquals(-1., s[i].getYcorner(), 0.01);
+            }
+        }
     }
 }
