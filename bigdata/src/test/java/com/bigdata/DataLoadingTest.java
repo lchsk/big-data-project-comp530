@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.bigdata.data.DataSetType;
+import com.bigdata.data.OSData;
 import com.bigdata.data.UniversalLoader;
 import com.bigdata.utility.Common;
 
@@ -69,6 +70,8 @@ public class DataLoadingTest extends TestCase
         
         String[] s4_ = Common.parseNGR("Unknown");
         
+        String[] s5_ = Common.parseNGR("testHMMM1234");
+        
         assertEquals(s1[0], s1_[0]);
         assertEquals(s1[1], s1_[1]);
         assertEquals(s1[2], s1_[2]);
@@ -78,8 +81,42 @@ public class DataLoadingTest extends TestCase
         assertEquals(s2[2], s2_[2]);
         
         assertEquals(null, s3_);
-        
         assertEquals(null, s4_);
+        assertEquals(null, s5_);
         
+    }
+    
+    /**
+     * Tests whether correct number of files were loaded.
+     */
+    public void testOS()
+    {
+        OSData os = new OSData();
+        os.load("NN");
+        assertEquals(100, os.count());
+        os.load("NO");
+        assertEquals(80, os.count());
+    }
+    
+    /**
+     * Tests whether all loaded data files have all fields.
+     */
+    public void testOSData()
+    {
+        OSData os = new OSData();
+        os.load("NN");
+        assertEquals(true, os.isDataLoaded());
+        
+        os.load("NO");
+        assertEquals(true, os.isDataLoaded());
+        
+        os.load("SU");
+        assertEquals(true, os.isDataLoaded());
+        
+        os.load("HZ");
+        assertEquals(true, os.isDataLoaded());
+        
+        os.load("TM");
+        assertEquals(true, os.isDataLoaded());
     }
 }

@@ -14,6 +14,6 @@ worldheritage_path=/home/lchsk/Downloads/DATA/worldheritage.csv
 buildings_path=/home/lchsk/Downloads/DATA/buildings.csv
 
 # Data directory
-data_path=/home/lchsk/Downloads/data_new/
+#data_path=/home/lchsk/Downloads/data_new/
 
-hive_home=/home/lchsk/Downloads/apache-hive-1.1.0-bin/
+#hive_home=/home/lchsk/Downloads/apache-hive-1.1.0-bin/
