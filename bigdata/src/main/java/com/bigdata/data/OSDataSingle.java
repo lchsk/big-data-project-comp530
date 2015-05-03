@@ -4,13 +4,12 @@ public class OSDataSingle
 {
     private double[][] data;
     private int iterator;
+    
     private int cols;
     private int rows;
     private double xcorner;
     private double ycorner;
     private int cellsize;
-    
-    
     
     public OSDataSingle()
     {

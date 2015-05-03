@@ -6,10 +6,12 @@ import junit.framework.TestSuite;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 
+import com.bigdata.analysis.Dataset;
 import com.bigdata.data.DataSetType;
 import com.bigdata.data.OSData;
 import com.bigdata.data.OSDataSingle;
 import com.bigdata.data.UniversalLoader;
+import com.bigdata.data.YorkData;
 import com.bigdata.utility.Common;
 
 public class DataLoadingTest extends TestCase
@@ -141,5 +143,53 @@ public class DataLoadingTest extends TestCase
                 assertNotEquals(-1., s[i].getYcorner(), 0.01);
             }
         }
+    }
+    
+    public void testFillZeroes()
+    {
+        assertEquals("00001", Common.fillZeroes(1));
+        assertEquals("00021", Common.fillZeroes(21));
+        assertEquals("00411", Common.fillZeroes(411));
+        assertEquals("04521", Common.fillZeroes(4521));
+        assertEquals("41021", Common.fillZeroes(41021));
+    }
+    
+    public void testSquareSymbols()
+    {
+        assertEquals("01", Common.getSquareSymbol(241, 10942));
+        assertEquals("90", Common.getSquareSymbol(98105, 00047));
+        assertEquals("90", Common.getSquareSymbol(98105, 47));
+        assertEquals("49", Common.getSquareSymbol(41299, 91251));
+        assertEquals("00", Common.getSquareSymbol(44, 99));
+        assertEquals("99", Common.getSquareSymbol(99999, 99999));
+    }
+    
+    public void testHeightEastingNorthing()
+    {
+        YorkData yd = new YorkData();
+        yd.load();
+        
+        OSData os = new OSData();
+        os.load("SU");
+        
+        Dataset d = new Dataset();
+        d.setArea("SU");
+        d.setOSData(os);
+        d.setYorkData(yd);
+        
+        assertEquals(18.1, d.getHeight("SU", 0, 0));
+        assertEquals(12.4, d.getHeight("SU", 9999, 0));
+        assertEquals(74.0, d.getHeight("SU", 0, 9999));
+        assertEquals(67.8, d.getHeight("SU", 9999, 9999));
+        
+        assertEquals(6.4, d.getHeight("SU", 90000, 0));
+        assertEquals(-1.7, d.getHeight("SU", 99999, 0));
+        assertEquals(119.5, d.getHeight("SU", 90000, 9999));
+        assertEquals(133.8, d.getHeight("SU", 99999, 9999));
+        
+        assertEquals(101.8, d.getHeight("SU", 90000, 90000));
+        assertEquals(76.2, d.getHeight("SU", 99999, 90000));
+        assertEquals(122.9, d.getHeight("SU", 90000, 99999));
+        assertEquals(138.2, d.getHeight("SU", 99999, 99999));
     }
 }

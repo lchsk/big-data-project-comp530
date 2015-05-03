@@ -90,4 +90,11 @@ public class YorkData
             e.printStackTrace();
         }
     }
+
+    public ArrayList<YorkDataItem> getData()
+    {
+        return data;
+    }
+    
+    
 }

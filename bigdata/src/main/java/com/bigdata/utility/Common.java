@@ -60,4 +60,46 @@ public class Common
     {
         return new BigDecimal(ha).doubleValue() * 10000.0;
     }
+    
+    /**
+     * Returns a symbol of a 10km square
+     * 
+     * @param easting
+     * @param northing
+     * @return
+     */
+    public static String getSquareSymbol(int easting, int northing)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Common.fillZeroes(easting).charAt(0));
+        sb.append(Common.fillZeroes(northing).charAt(0));
+        
+        return sb.toString();
+    }
+    
+    public static int getSquareSymbolInt(int easting, int northing)
+    {
+        return Integer.valueOf(Common.getSquareSymbol(easting, northing));
+    }
+    
+    /**
+     * Puts 0s before the number.
+     * Eg. 832 -> 00832
+     * 
+     * @param value
+     * @return
+     */
+    public static String fillZeroes(int value)
+    {
+        String s = String.valueOf(value);
+        
+        String r = "";
+        
+        for (int i = 0; i < 5 - s.length(); i++)
+            r += "0";
+        
+        r += s;
+        
+        return r;
+    }
 }
