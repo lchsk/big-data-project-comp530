@@ -6,25 +6,51 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.bigdata.DataLoadingTest;
+
 public class Parameters
 {
-    Options options;
-    String[] args;
+    private Options options;
+    private String[] args;
     
-    CommandLineParser parser;
-    CommandLine cmd;
+    private CommandLineParser parser;
+    private CommandLine cmd;
     
     public Parameters(String[] p_args) throws ParseException
     {
         args = p_args;
         options = new Options();
-        options.addOption("t", false, "display current time");
+        options.addOption("g", true, "Generate training data");
+        options.addOption("t", true, "Generate test data");
+        options.addOption("h", false, "Help");
         
         parser = new BasicParser();
         cmd = parser.parse(options, args);
     }
     
-//    if(cmd.hasOption("t")) {
-//        System.out.println("hahahaha");
-//    }
+    public String generateTrainingData()
+    {
+        if( ! cmd.hasOption("g"))
+            return null;
+        else
+            return cmd.getOptionValue("g");
+    }
+    
+    public boolean help()
+    {
+        if(cmd.hasOption("h"))
+            return true;
+        
+        return false;
+    }
+    
+    public String generateTestData()
+    {
+        if( ! cmd.hasOption("t"))
+            return null;
+        else
+            return cmd.getOptionValue("t");
+    }
+    
+
 }

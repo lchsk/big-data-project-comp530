@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import com.bigdata.data.DataSetType;
 import com.bigdata.data.OSData;
+import com.bigdata.data.OSDataSingle;
 import com.bigdata.data.UniversalItem;
 import com.bigdata.data.UniversalLoader;
 import com.bigdata.data.YorkData;
@@ -16,6 +18,8 @@ import com.bigdata.utility.Common;
 
 public class Dataset
 {
+    private final Logger log = Logger.getLogger(UniversalLoader.class.getName());
+    
     private YorkData yd;
     private OSData os;
     private UniversalLoader loader;
@@ -101,28 +105,6 @@ public class Dataset
         double min = 9999999;
         ArrayList<UniversalItem> d = getDataset(t);
         
-//        switch (t)
-//        {
-//            case BATTLEFIELDS:
-//                d = loader.getdBattlefields();
-//                break;
-//            case IMMUNITY:
-//                d = loader.getdImmunity();
-//                break;
-//            case PARKS:
-//                d = loader.getdParks();
-//                break;
-//            case MONUMENTS:
-//                d = loader.getdMonuments();
-//                break;
-//            case BUILDINGS:
-//                d = loader.getdBuildings();
-//                break;
-//            case HERITAGE_SITES:
-//                d = loader.getdHeritageSites();
-//                break;
-//        }
-        
         for (UniversalItem i : d)
         {
             if (area.equals(i.getMcode()))
@@ -143,8 +125,8 @@ public class Dataset
     public void createTrainingSet()
     {
         BufferedWriter writer = null;
-      //create a temporary file
-        File output = new File("out.csv");
+        
+        File output = new File("train_" + area + ".csv");
         
         int counter = 1;
         
@@ -152,7 +134,6 @@ public class Dataset
         {
             writer = new BufferedWriter(new FileWriter(output));
             writer.write("arch,height,distM,distP,distB,countM,countP,countB\n");
-//            writer.write("arch,x,y\n");
             
             for (YorkDataItem s : yd.getData())
             {
@@ -179,13 +160,11 @@ public class Dataset
                             "," + countP + 
                             "," + countB + 
                             "\n");
-//                    System.out.println(distM + " " + distP + " " + distB);
-//                    writer.write(s.getMark() + "," + s.getEasting() / 100000.0 + "," + s.getNorthing() / 100000.0 + "\n");
                 }
                 counter++;
             }
             
-            System.out.println("Output saved to " + output.getCanonicalPath());
+            log.info("Output saved to " + output.getCanonicalPath());
         } 
         catch (Exception e)
         {
@@ -201,10 +180,124 @@ public class Dataset
             {
             }
         }
+    }
+    
+    public ArrayList<EastingNorthingPoint> getAllPoints(int squareID, double baseX, double baseY)
+    {
+        ArrayList<EastingNorthingPoint> points = new ArrayList<EastingNorthingPoint>();
+        
+//        int easting = os.getEastingModifier(s.getIterator()) + 
         
         
+        double distance = 1;
+        double jump = 50. / distance;
         
+        for (int i = 0; i < 200; i += jump)
+        {
+            for (int j = 0; j < 200; j += jump)
+            {
+//                System.out.println("SQUAREID: " + squareID);
+                int e = (int) Common.shiftFromCorner(baseX, i, 50);
+                int n = (int) Common.shiftFromCorner(baseY, j, 50);
+                String eastingMod = String.valueOf(os.getEastingModifier(squareID));
+                String northingMod = String.valueOf(os.getNorthingModifier(squareID));
+                String easting = eastingMod + String.valueOf(j * 50);
+                String northing = northingMod + String.valueOf(i * 50);
+                double[] latlon = Common.enToLatLon(String.valueOf(e), String.valueOf(n));
+                
+//                System.out.println(eastingMod + " " + northingMod + " " + easting + " " + northing);
+                
+                EastingNorthingPoint p = new EastingNorthingPoint(
+                        Integer.valueOf(easting), Integer.valueOf(northing),
+                        e, n,
+                        latlon[0], latlon[1]
+                        );
+                points.add(p);
+            }
+        }
         
+        return points;
+    }
+    
+    public void createTestSet()
+    {
+        BufferedWriter writer = null;
+        
+        File output = new File("test_" + area + ".csv");
+        
+        int counter = 1;
+        
+        try 
+        {
+            writer = new BufferedWriter(new FileWriter(output));
+            writer.write("e,n,lat,lon,height,distM,distP,distB,countP\n");
+            
+//            for (YorkDataItem s : yd.getData())
+//            int it = 0;
+            for (OSDataSingle s : os.getData())
+            {
+                if (s != null)
+                {
+                    
+                    
+                    System.out.println("Item: " + counter + " / " + os.getData().length + " (" + Math.round((float)counter / os.getData().length) + "%)");
+                    
+                    ArrayList<EastingNorthingPoint> points = getAllPoints(counter - 1, s.getXcorner(), s.getYcorner());
+
+                    //for (EastingNorthingPoint p : points)
+                    {
+                        //System.out.println(p.getEasting() + " " + p.getNorthing() + " " + p.getE() + " " + p.getN() + " " + p.getLat() + " " + p.getLon());
+                    }
+                    
+//                    System.exit(0);
+                    
+                    for (EastingNorthingPoint p : points)
+                    {
+//                        double[] latlon = Common.enToLatLon(String.valueOf(p.getEasting()), String.valueOf(p.getNorthing()));
+                        
+                        double height = getHeight(area, p.getEasting(), p.getNorthing());
+                        
+                        double distM = getMinDistanceFromPlace(DataSetType.MONUMENTS, area, p.getEasting(), p.getNorthing());
+                        double distP = getMinDistanceFromPlace(DataSetType.PARKS, area, p.getEasting(), p.getNorthing());
+                        double distB = getMinDistanceFromPlace(DataSetType.BUILDINGS, area, p.getEasting(), p.getNorthing());
+                        
+                       // double countM = countObjectsWithinRadius(DataSetType.MONUMENTS, area, p.getEasting(), p.getNorthing(), 5000);
+                        double countP = countObjectsWithinRadius(DataSetType.PARKS, area, p.getEasting(), p.getNorthing(), 5000);
+                       // double countB = countObjectsWithinRadius(DataSetType.BUILDINGS, area, p.getEasting(), p.getNorthing(), 5000);
+//                        System.out.println(countM + " " + countP + " " + countB);
+                        writer.write(
+                                p.getE() +
+                                "," + p.getN() +
+                                "," + p.getLat() +
+                                "," + p.getLon() +
+                                "," + height + 
+                                "," + distM + 
+                                "," + distP + 
+                                "," + distB + 
+                                "," + countP + 
+                                "\n");
+                    }
+                }
+                counter++;
+                
+            }
+            
+            log.info("Test output saved to " + output.getCanonicalPath());
+        } 
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        } 
+        finally 
+        {
+            try 
+            {
+                writer.close();
+            } 
+            catch (Exception e) 
+            {
+            }
+        }
     }
     
     public void setArea(String p_area)

@@ -39,6 +39,16 @@ public class OSData
         return path + tileL + "/" + tileU + ID + ".asc";
     }
     
+    public int getEastingModifier(int i)
+    {
+        return (int) Math.floor(i / 10);
+    }
+    
+    public int getNorthingModifier(int i)
+    {
+        return i % 10;
+    }
+    
     public int count()
     {
         int c = 0;

@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import org.apache.commons.cli.ParseException;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
 
 import com.bigdata.analysis.Dataset;
 import com.bigdata.data.DataSetType;
@@ -28,30 +30,79 @@ public class Main
         
 //        System.exit(0);
         
+        String[] areas = new String[]{
+                // 7
+                "HP", "HT", "HU", "HW", "HX", "HY", "HZ",
+                
+                //21
+                "NA", "NB", "NC", "ND", "NF", "NG", "NH", "NJ", "NK", "NL", "NM", "NN", "NO", "NR", "NS", "NT", "NU", "NW", "NX", "NY", "NZ",
+                
+                // 1
+                "OV",
+                
+                // 19
+                "SC", "SD", "SE", "SH", "SJ", "SK", "SM", "SN", "SO", "SP", "SR", "SS", "ST", "SU", "SV", "SW", "SX", "SY", "SZ",
+                
+                // 8
+                "TA", "TF", "TG", "TL", "TM", "TQ", "TR", "TV"
+        };
+        
         Parameters params = new Parameters(args);
-        YorkData yd = new YorkData();
-        yd.load();
-        UniversalLoader loader = new UniversalLoader();
-//        loader.load(DataSetType.BATTLEFIELDS);
-//        loader.load(DataSetType.IMMUNITY);
-        loader.load(DataSetType.PARKS);
-        loader.load(DataSetType.MONUMENTS);
-//        loader.load(DataSetType.HERITAGE_SITES);
-        loader.load(DataSetType.BUILDINGS);
         
-        String area = "SU";
+        if (params.help())
+        {
+            
+            System.exit(0);
+        }
         
-        OSData os = new OSData();
-        os.load(area);
-        
-        Dataset d = new Dataset();
-        d.setArea(area);
-        d.setOSData(os);
-        d.setLoader(loader);
-        d.setYorkData(yd);
-        d.createTrainingSet();
-        
-        
+        if (params.generateTrainingData() != null || params.generateTestData() != null)
+        {
+            String area = "";
+            
+            if (params.generateTrainingData() != null)
+                area = params.generateTrainingData();
+            else if (params.generateTestData() != null)
+                area = params.generateTestData();
+            
+            log.info("Loading data in progress...");
+            
+            YorkData yd = new YorkData();
+            yd.load();
+            UniversalLoader loader = new UniversalLoader();
+            loader.load(DataSetType.PARKS);
+            loader.load(DataSetType.MONUMENTS);
+            loader.load(DataSetType.BUILDINGS);
+            
+            OSData os = new OSData();
+            os.load(area);
+            
+            Dataset d = new Dataset();
+            d.setArea(area);
+            d.setOSData(os);
+            d.setLoader(loader);
+            d.setYorkData(yd);
+            
+            log.info("Data loaded.");
+            
+            if (params.generateTrainingData() != null)
+            {
+                log.info("Creating training data set for " + area);
+                d.createTrainingSet();
+            }
+            else if (params.generateTestData() != null)
+            {
+                log.info("Creating test data set for: " + area);
+                d.createTestSet();
+            }
+        }
+//        else if (params.runUnitTests())
+//        {
+//            log.info("Running unit tests...");
+//            
+////            JUnitCore junit = new JUnitCore();
+////            org.junit.runner.JUnitCore.main("junitfaq.SimpleTest");
+////            Result result = junit.run(DataLoadingTest.class);
+//        }
         
     }
 }

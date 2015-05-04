@@ -145,6 +145,41 @@ public class DataLoadingTest extends TestCase
         }
     }
     
+    public void testOSCoordinates()
+    {
+        OSData os = new OSData();
+        os.load("SU");
+        
+        OSDataSingle[] s = os.getData();
+        
+        for (int i = 0; i < s.length; i++)
+        {
+            if (s[i] != null)
+            {
+                // bottom left X
+                double x = s[i].getXcorner();
+                
+                // bottom left Y
+                double y = s[i].getYcorner();
+                
+                int cols = s[i].getCols();
+                int rows = s[i].getRows();
+                
+                // cell size (50 m)
+                int cell = s[i].getCellsize();
+                
+                assertEquals(x, Common.shiftFromCorner(x, 0, cell));
+                assertEquals(y, Common.shiftFromCorner(y, 0, cell));
+                
+                assertEquals(x + 9950, Common.shiftFromCorner(x, 199, cell));
+                assertEquals(y + 9950, Common.shiftFromCorner(y, 199, cell));
+                
+                assertEquals(x + 2500, Common.shiftFromCorner(x, 50, cell));
+                assertEquals(y + 2500, Common.shiftFromCorner(y, 50, cell));
+            }
+        }
+    }
+    
     public void testFillZeroes()
     {
         assertEquals("00001", Common.fillZeroes(1));
