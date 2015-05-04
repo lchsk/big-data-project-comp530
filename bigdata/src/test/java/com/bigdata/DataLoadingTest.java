@@ -164,6 +164,27 @@ public class DataLoadingTest extends TestCase
         assertEquals("99", Common.getSquareSymbol(99999, 99999));
     }
     
+    public void testMinDistances()
+    {
+        UniversalLoader loader = new UniversalLoader();
+//      loader.load(DataSetType.BATTLEFIELDS);
+//      loader.load(DataSetType.IMMUNITY);
+//      loader.load(DataSetType.PARKS);
+      loader.load(DataSetType.MONUMENTS);
+//      loader.load(DataSetType.HERITAGE_SITES);
+//      loader.load(DataSetType.BUILDINGS);
+        
+        Dataset d = new Dataset();
+        d.setArea("SU");
+        d.setLoader(loader);
+//        d.setOSData(os);
+//        d.setYorkData(yd);
+        
+        assertEquals(0.0, d.getMinDistanceFromPlace(DataSetType.MONUMENTS, "SU", 69206, 31085));
+        
+
+    }
+    
     public void testHeightEastingNorthing()
     {
         YorkData yd = new YorkData();

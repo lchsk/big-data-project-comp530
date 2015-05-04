@@ -3,7 +3,7 @@
 os50_path=/home/lchsk/Downloads/DATA/data/
 
 # 30k rows, york archeological...
-york_path=/home/lchsk/Downloads/DATA/cleaned_WholeUK.csv
+york_path=/home/lchsk/Downloads/DATA/all.csv
 
 # Standard sets
 battlefields_path=/home/lchsk/Downloads/DATA/battlefields.csv

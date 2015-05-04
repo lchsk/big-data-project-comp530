@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.apache.commons.cli.ParseException;
 
 import com.bigdata.analysis.Dataset;
+import com.bigdata.data.DataSetType;
 import com.bigdata.data.OSData;
 import com.bigdata.data.UniversalLoader;
 import com.bigdata.data.YorkData;
@@ -33,16 +34,18 @@ public class Main
         UniversalLoader loader = new UniversalLoader();
 //        loader.load(DataSetType.BATTLEFIELDS);
 //        loader.load(DataSetType.IMMUNITY);
-//        loader.load(DataSetType.PARKS);
-//        loader.load(DataSetType.MONUMENTS);
+        loader.load(DataSetType.PARKS);
+        loader.load(DataSetType.MONUMENTS);
 //        loader.load(DataSetType.HERITAGE_SITES);
-//        loader.load(DataSetType.BUILDINGS);
+        loader.load(DataSetType.BUILDINGS);
+        
+        String area = "SU";
         
         OSData os = new OSData();
-        os.load("SU");
+        os.load(area);
         
         Dataset d = new Dataset();
-        d.setArea("SU");
+        d.setArea(area);
         d.setOSData(os);
         d.setLoader(loader);
         d.setYorkData(yd);

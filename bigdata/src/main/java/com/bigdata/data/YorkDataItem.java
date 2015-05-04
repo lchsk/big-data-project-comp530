@@ -2,6 +2,7 @@ package com.bigdata.data;
 
 public class YorkDataItem
 {
+    private int mark;
     private int id;
     private String mcode;
     private int easting;
@@ -15,6 +16,7 @@ public class YorkDataItem
     private double lon;
     
     public YorkDataItem(
+            int p_mark,
             int p_id, 
             String p_mcode, 
             int p_easting, 
@@ -27,6 +29,7 @@ public class YorkDataItem
             double p_lon
             )
     {
+        mark = p_mark;
         id = p_id;
         mcode = p_mcode;
         easting = p_easting;
@@ -137,6 +140,16 @@ public class YorkDataItem
     public void setLon(double lon)
     {
         this.lon = lon;
+    }
+
+    public int getMark()
+    {
+        return mark;
+    }
+
+    public void setMark(int mark)
+    {
+        this.mark = mark;
     }
     
     
