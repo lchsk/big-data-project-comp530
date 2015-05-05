@@ -6,9 +6,9 @@ import matplotlib.pyplot as pl
 class TrainingEvaluation(object):
     def __init__(self):
         self.data = pd.read_csv("train.csv")
-        self.data.columns = ["arch", "height", "distM", "distP", "distB", "countM", 'countP', 'countB']
+        self.data.columns = ["arch", "height", "distM", "distP", "distB", "countM", 'countP', 'countB', 'e','n','lat','lon']
         self.data['intercept'] = 1.0
-        self.train_cols = ['height', 'distB', 'distM', 'distP', 'countP']
+        self.train_cols = ['height', 'countP', 'distB', 'distP', 'distM']
 
     def evaluate(self):
         self.train = self.data[:400]

@@ -85,6 +85,7 @@ public class Dataset
             for (UniversalItem i : d)
             {
                 if (area.equals(i.getMcode()))
+                    
                 {
                     double e = i.getEasting();
                     double n = i.getNorthing();
@@ -133,7 +134,7 @@ public class Dataset
         try 
         {
             writer = new BufferedWriter(new FileWriter(output));
-            writer.write("arch,height,distM,distP,distB,countM,countP,countB\n");
+            writer.write("arch,height,distM,distP,distB,countM,countP,countB,e,n,lat,lon\n");
             
             for (YorkDataItem s : yd.getData())
             {
@@ -141,6 +142,8 @@ public class Dataset
                 
                 if (s.getMcode().equals(area))
                 {
+                    double[] latlon = Common.enToLatLon(String.valueOf(s.getE()), String.valueOf(s.getN()));
+                    
                     double height = getHeight(area, s.getEasting(), s.getNorthing());
                     
                     double distM = getMinDistanceFromPlace(DataSetType.MONUMENTS, area, s.getEasting(), s.getNorthing());
@@ -158,7 +161,11 @@ public class Dataset
                             "," + distB + 
                             "," + countM + 
                             "," + countP + 
-                            "," + countB + 
+                            "," + countB +
+                            "," + s.getE() + 
+                            "," + s.getN() +
+                            "," + latlon[0] +
+                            "," + latlon[1] +
                             "\n");
                 }
                 counter++;
@@ -189,12 +196,11 @@ public class Dataset
 //        int easting = os.getEastingModifier(s.getIterator()) + 
         
         
-        double distance = 1;
-        double jump = 50. / distance;
+        int jump = 50;
         
-        for (int i = 0; i < 200; i += jump)
+        for (int i = jump / 2; i < 200; i += jump)
         {
-            for (int j = 0; j < 200; j += jump)
+            for (int j = jump / 2; j < 200; j += jump)
             {
 //                System.out.println("SQUAREID: " + squareID);
                 int e = (int) Common.shiftFromCorner(baseX, i, 50);

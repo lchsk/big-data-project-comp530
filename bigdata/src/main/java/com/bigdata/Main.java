@@ -74,35 +74,50 @@ public class Main
             loader.load(DataSetType.BUILDINGS);
             
             OSData os = new OSData();
-            os.load(area);
             
             Dataset d = new Dataset();
-            d.setArea(area);
+            
             d.setOSData(os);
             d.setLoader(loader);
             d.setYorkData(yd);
             
             log.info("Data loaded.");
             
-            if (params.generateTrainingData() != null)
+            if (area.equals("ALL"))
             {
-                log.info("Creating training data set for " + area);
-                d.createTrainingSet();
+                for (String a : areas)
+                {
+                    d.setArea(a);
+                    os.load(a);
+                    
+                    if (params.generateTrainingData() != null)
+                    {
+                        log.info("Creating training data set for " + a);
+                        d.createTrainingSet();
+                    }
+                    else if (params.generateTestData() != null)
+                    {
+                        log.info("Creating test data set for: " + a);
+                        d.createTestSet();
+                    }
+                }
             }
-            else if (params.generateTestData() != null)
+            else
             {
-                log.info("Creating test data set for: " + area);
-                d.createTestSet();
+                d.setArea(area);
+                os.load(area);
+                
+                if (params.generateTrainingData() != null)
+                {
+                    log.info("Creating training data set for " + area);
+                    d.createTrainingSet();
+                }
+                else if (params.generateTestData() != null)
+                {
+                    log.info("Creating test data set for: " + area);
+                    d.createTestSet();
+                }
             }
         }
-//        else if (params.runUnitTests())
-//        {
-//            log.info("Running unit tests...");
-//            
-////            JUnitCore junit = new JUnitCore();
-////            org.junit.runner.JUnitCore.main("junitfaq.SimpleTest");
-////            Result result = junit.run(DataLoadingTest.class);
-//        }
-        
     }
 }
