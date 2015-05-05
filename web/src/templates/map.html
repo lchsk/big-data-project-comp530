@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <script>
+    window.data = {{ data|safe }};
+    window.train = {{ train|safe }};
+  </script>
+
+  <div id="map" style="min-height: 600px;"></div>
+
+{% endblock %}
