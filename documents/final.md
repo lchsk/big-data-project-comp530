@@ -129,27 +129,27 @@ Figure 3.10. `distP` feature (Y axis) in the training data (X axis). More archeo
 
 ![](images/train_distP_arch.png "")
 
-Figure 3.10. `countP` feature (Y axis) in the training data (X axis). Archeological sites generally have many parks nearby.
+Figure 3.11. `countP` feature (Y axis) in the training data (X axis). Archeological sites generally have many parks nearby.
 
 ![](images/train_countP_arch.png "")
 
-Figure 3.11. `countM` feature (Y axis) in the training data (X axis). Correlation difficult to spot. Feature was not used.
+Figure 3.12. `countM` feature (Y axis) in the training data (X axis). Correlation difficult to spot. Feature was not used.
 
 ![](images/train_countM_arch.png "")
 
-Figure 3.12. `countB` feature (Y axis) in the training data (X axis). Although clearly archeoalogical sites have more buildings nearby, but during the analysis using this feature only made the results worse and that's why it was not used.
+Figure 3.13. `countB` feature (Y axis) in the training data (X axis). Although clearly archeoalogical sites have more buildings nearby, but during the analysis using this feature only made the results worse and that's why it was not used.
 
 ![](images/train_countB_arch.png "")
 
 
 #### 3.2 Testing algorithms
 
-Statsmodels library which was used for the analysis includes several algorithms. Each algorithm was run with the training data (half of those used for training and half for evaluation). Using this technique, values of true positives, true negatives, false positives and false negatives were collected. Finally, the logistic regression was used as it proved to have the highest number of true positives and true negatives. Results of the tests are available in table 3.2. In each test __529__ instances were used for tests.
+Statsmodels library which was used for the analysis includes several algorithms. Each algorithm was run with the training data (half of those used for training and half for evaluation). Using this technique, values of true positives, true negatives, false positives and false negatives were collected. Finally, the logistic regression was used as it proved to have the highest number of true positives and true negatives. Results of the tests are available in table 3.2. In each test __529__ instances were used.
 
 Table 3.2. Evaluating algorithms
 
 |Algorithm|TP + TN|% of (TP + TN)|TP|TN|FP|FN|
-|---------|||
+|---------|-------|--------------|--|--|--|--|
 |Logistic regression|397|75%|165|232|59|73|
 |Negative Binomial Regression|388|73%|155|233|58|81|
 |Linear (OLS)|344|65%|116|228|63|119|
@@ -160,6 +160,28 @@ Table 3.2. Evaluating algorithms
 
 ### 5 Conclusions
 
-#### 5.1 Correlation of features
+#### 5.1 Observations
+
+After running the analysis, the graphs were plotted again to see whether obtained probabilities correlate to the selected features from the training data (as was described in the section 3). The results are presented below.
+
+Figure 5.1. Probability of finding an archeological artifact (Y axis) is clearly related to the `height` (X axis). Probability grows as height over sea level decreases. This conclusion coincides with what was observed in figure 3.1 (which was based on the training data).
+
+![](images/test_data_height_prob.png "")
+
+Figure 5.2. Probability of finding an archeological artifact (Y axis) is related to the `distB` (X axis). Probability grows as the distance to the closest historical building decreases. This conclusion coincides with what was observed in figure 3.8 (which was based on the training data).
+
+![](images/test_data_distB_prob.png "")
+
+Figure 5.3. This charts shows how probability of finding an archeological artifact (Y axis) is related to the `distP` (X axis). Here, correlation is not so easily observed but it still can be notes that there are more instances with low `distP` and high probability, which is the exact conclusion of figure 3.10.
+
+![](images/test_data_distP_prob.png "")
+
+Figure 5.4. This charts shows how probability of finding an archeological artifact (Y axis) is related to the `distM` (X axis). Here, correlation is difficult to observe, which is similar to the figure 3.9.
+
+![](images/test_data_distM_prob.png "")
+
+Figure 5.5. This charts shows how probability of finding an archeological artifact (Y axis) is related to the `countP` (X axis). Clearly many parks nearby is closely related to high probability of finding something (which was shown in figure 3.11). 
+
+![](images/test_data_countP_prob.png "")
 
 ### 6 Summary
