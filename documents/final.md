@@ -3,9 +3,37 @@
 
 ### 1 Introduction
 
-#### 1.1 Aim of the project
+This project is intended to help inform of the likelihood of the archeological discovery anywhere in England. It can be used by planners wishing to lower the risk involved with discovering archeological sites and those looking for a specific place of value.
+
+The aims of the project involve allowing a stakeholder to visualise likely locations where archaeological artefacts may be discovered. This may reduce the risks, time and costs involved in the discovery of archaeological sites.
+
+Definitions:
+
+- An __artefact__ is “something made or given shape by man, such as a tool or a work of art, especially an object of archaeological interest"; an artefact is an object recovered by archaeological endeavour
+
+- __Archaeology__ is the “study of human activity in the past, primarily through the recovery and analysis of the material culture and environmental data that has been left behind by past human populations
 
 #### 1.2 Available data sets
+
+Several data sets were used in this projects. Height over sea level are taken from OS Terrain 50 data set (in which distance between points is 50 meters). Locations of monuments, historical buildings and parks come from English Heritage and known archeological sites were taken from York Archaeological Data Service.
+
+During the implementation, a problem arised with the York data set (ie., known sites). Most of the 100 km squares had a lot of points clustered in the bottom left corner. Examples are shown below (fig 1.1, 1.2).
+
+Figure 1.1. Visualisation of the known archeological sites in the SP square. As the reason for so many points in the bottom left corner is unknown, the points were removed.
+
+![](images/SP_bottom_left.png "")
+Figure 1.2. Visualisation of the known archeological sites in the SU square (roughly Hampshire county). The situation here is very similar to the one in Fig 1.1.
+![](images/SU_error_bottom_left.png "")
+
+Another major issue related to this data set was to obtain "negative" instances. The York data set includes only positive instances. As the regression algorithms expect to receive instanced marked as 1 or 0, the negative data set was created.
+
+The idea behind this was to come up with points that are furthest away from known sites. After this has been done, the graphs were plotted (the ones shown in the section 3) to check whether newly produced instances make sense. After observing those results on graphs, it seemed that the idea seem viable. The graphs which present the obtained data are visibile in Fig 1.3 and 1.4.
+
+Figure 1.3. Visualisation of the known archeological sites in the SU square (roughly Hampshire county). Note lack of points in the bottom left corner (which were removed, as described above).
+![](images/SU_cleaned.png "")
+
+Figure 1.4. Visualisation of the known archeological sites (red) and places that are deemed to lack those sites in the SU square (green). Green points largely cover empty space away from red points (cf. Fig 1.3).
+![](images/SU_with_0s.png "")
 
 #### 1.3 Technologies used
 
@@ -158,9 +186,37 @@ Table 3.2. Evaluating algorithms
 
 ### 4 Visualisation
 
-### 5 Conclusions
+The third part of the system is the visualisation website. As described in Table 1.1 it is based upon web framework called Flask and the front-end is made with Twitter Bootstrap and Leaflet.js (which made possible to use maps and draw on them). The idea behind this website is to let potential users easily browse the results. Because generation of the test sets for every point available (ie., every 50 meters) would take very long time, it was decided to select fewer points in order to speed up the process. So the visualisation may not be perfectly detailed, but as shown below, even though it's just an approximation, it still quite clearly shows where artifacts may be found.
 
-#### 5.1 Observations
+A user has three options to choose from in the visualisation website. The system can show predicted values for the whole England (default), the training data and the training data drawn onto predicted values. Map can be easily zoomed in or zoomed out and moved around. Each point on the map can be clicked by the user and in the shown box, values of the features for that particular location will be shown.
+
+#### 4.1 Screenshots
+
+Figure 4.1. The default view of the website. It shows predicted values drawn onto the map. Red and orange points denote very large and large probability of finding artifacts, respectively. Green points mean small probability.  
+
+![](view1.png "")
+
+Figure 4.2. The are around Liverpool with points drawn. At the top, the menu is visible.
+
+![](view2.png "")
+
+Figure 4.3. After clicking on any point, a box appears with values for that location.
+
+![](view3.png "")
+
+Figure 4.4. One of the conclusions that can be drawn is that artifacts are often close to each other, and that many of the appear in large cities. That can be compared to the area of London in the training set (cf. Fig. 4.5).
+
+![](view4.png "")
+
+Figure 4.5. Training data for the TQ square which covers London. Unsurprisingly, many historical artifacts can be found near large cities.
+
+![](images/TQ_error_bottom_left.png "")
+
+Figure 4.6. Blue pointers mark instances from the training data. It can be noted that training instances usually coincide with the positive predicted values (red and orange circles), which is a desirable outcome.
+
+![](view5.png "")
+
+### 5 Observations
 
 After running the analysis, the graphs were plotted again to see whether obtained probabilities correlate to the selected features from the training data (as was described in the section 3). The results are presented below.
 
@@ -185,3 +241,7 @@ Figure 5.5. This charts shows how probability of finding an archeological artifa
 ![](images/test_data_countP_prob.png "")
 
 ### 6 Summary
+
+As the aim of the project was to check whether it is possible to predict likelihood of the archeological findings using only open data, it can be concluded that such an endeavour is possible. Although there are many obstacles to deal with in this kind of project: from data issues such as errors and uncertainty of whether chosen algorithms and methods were correct to correctly using different coordination systems (visualisation needs latitude and longitude, but most of the available offers location in different format).
+
+But as shown in this project, and described in this document, it is possible to obtain credible results, even though some of the techniques and technologies used here varied from the ones that were planned initially. One recommendation that may be in order after finishing the project is that it would be advisable to exploit more computing power. With that there's simply more chance to obtain a bit more detailed results.
