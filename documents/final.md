@@ -149,11 +149,11 @@ Statsmodels library which was used for the analysis includes several algorithms.
 Table 3.2. Evaluating algorithms
 
 |Algorithm|TP + TN|% of (TP + TN)|TP|TN|FP|FN|
-|---------|-------|--------------|--|--|--|--|
+|-----|-----|-----|-----|-----|-----|-----|
 |Logistic regression|397|75%|165|232|59|73|
 |Negative Binomial Regression|388|73%|155|233|58|81|
 |Linear (OLS)|344|65%|116|228|63|119|
-|Probit regression|396|749%|164|232|59|74|
+|Probit regression|396|74.9%|164|232|59|74|
 |Poisson regression|388|73%|155|233|58|81|
 
 ### 4 Visualisation
@@ -180,7 +180,7 @@ Figure 5.4. This charts shows how probability of finding an archeological artifa
 
 ![](images/test_data_distM_prob.png "")
 
-Figure 5.5. This charts shows how probability of finding an archeological artifact (Y axis) is related to the `countP` (X axis). Clearly many parks nearby is closely related to high probability of finding something (which was shown in figure 3.11). 
+Figure 5.5. This charts shows how probability of finding an archeological artifact (Y axis) is related to the `countP` (X axis). Clearly many parks nearby is closely related to high probability of finding something (which was shown in figure 3.11).
 
 ![](images/test_data_countP_prob.png "")
 
