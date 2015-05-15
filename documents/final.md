@@ -40,7 +40,7 @@ Figure 1.4. Visualisation of the known archeological sites (red) and places that
 Several different technologies were used to create the system described in this document.
 The application consists of several essential parts. All available data is loaded into the Java application for preprocessing. Also, data warehouse structure in Big Insights has been used for data storage. Java application is also used to generate training and test sets. Then, the training set is used to train statistical model built with Python. Test sets produced beforehand are then loaded into Python program to compute probabilities. After all of this is done, the final data sets (which include probabilities now) are loaded into a visualisation website created with Python, HTML and JavaScript. The flow of the application is presented in Figure 1.1.
 
-Figure 1.1. Diagram of the whole system.
+Figure 1.5. Diagram of the whole system.
 
 ![Diagram](diagram2.jpg "Diagram")
 
